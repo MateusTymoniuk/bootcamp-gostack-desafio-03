@@ -2,10 +2,25 @@ import * as Yup from 'yup';
 import Delivery from '../models/Delivery';
 import Recipient from '../models/Recipient';
 import Deliveryman from '../models/Deliveryman';
+import File from '../models/File';
+import Queue from '../../lib/Queue';
+import NewDeliveryMail from '../jobs/NewDeliveryMail';
 
 class DeliveryController {
   async index(req, res) {
-    const deliveries = await Delivery.findAll();
+    const { page = 1 } = req.query;
+
+    const deliveries = await Delivery.findAll({
+      include: [
+        {
+          model: File,
+          as: 'signature',
+          attributes: ['name', 'path', 'url'],
+        },
+      ],
+      limit: 5,
+      offset: (page - 1) * 5,
+    });
     return res.json(deliveries);
   }
 
@@ -20,23 +35,25 @@ class DeliveryController {
       return res.status(400).json({ error: 'Validation failed.' });
     }
 
-    const { recipient_id, deliveryman_id } = req.body;
+    const { recipient_id, deliveryman_id, product } = req.body;
 
-    if (recipient_id) {
-      const recipient = await Recipient.findByPk(recipient_id);
-      if (!recipient) {
-        return res.status(400).json({ error: 'Recipient does not exist' });
-      }
+    const recipient = await Recipient.findByPk(recipient_id);
+    if (!recipient) {
+      return res.status(400).json({ error: 'Recipient does not exist' });
     }
 
-    if (deliveryman_id) {
-      const deliveryman = await Deliveryman.findByPk(deliveryman_id);
-      if (!deliveryman) {
-        return res.status(400).json({ error: 'Deliveryman does not exist' });
-      }
+    const deliveryman = await Deliveryman.findByPk(deliveryman_id);
+    if (!deliveryman) {
+      return res.status(400).json({ error: 'Deliveryman does not exist' });
     }
 
     const delivery = await Delivery.create(req.body);
+
+    await Queue.add(NewDeliveryMail.key, {
+      deliveryman,
+      recipient,
+      product,
+    });
 
     return res.json(delivery);
   }
