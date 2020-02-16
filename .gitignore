@@ -1,3 +1,9 @@
 /node_modules
 .vscode
 package-lock.json
+
+# exclude everything on uploads folder
+tmp/uploads/*
+
+# exception to the rule, to keep the folder on the repository
+!tmp/uploads/.gitkeep
