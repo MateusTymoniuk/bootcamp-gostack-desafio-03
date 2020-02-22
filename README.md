@@ -48,7 +48,7 @@ Desafio proposto em: https://github.com/Rocketseat/bootcamp-gostack-desafio-03/b
 
 3 - **Configurar as variáveis do docker**:
 
-  Para utilizar os containers do postgres e do redis, basta ir no arquivo docker-compose.yml, e preencher as variáveis, com os mesmos valores das variáveis do item anterior:
+  - Para utilizar os containers do postgres e do redis, basta ir no arquivo docker-compose.yml, e preencher as variáveis, com os mesmos valores das variáveis do item anterior:
 
       POSTGRES_USER (nome do usuário do banco de dados - como cadastrado na DB_USER)
       POSTGRES_PASSWORD (nome do usuário - como cadastrado na DB_PASS)
