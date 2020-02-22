@@ -58,25 +58,21 @@ Desafio proposto em: https://github.com/Rocketseat/bootcamp-gostack-desafio-03/b
 
     docker-compose up
 
-  Lembre-se
-
 5 - **Instalar as dependências do projeto** digitando no terminal o comando:
 
     npm install
 
-6 - Nos seus GDBs que for usar, **crie os bancos de dados, e para cada banco, o respectivo usuário com as permissões de acesso necessárias**;
-
-7 - **Aplique as migrations para criar as tabelas no banco de dados**. No terminal da aplicação digite:
+6 - **Aplique as migrations para criar as tabelas no banco de dados**. No terminal da aplicação digite:
 
     npx sequelize db:migrate
 
   O comando acima assume por padrão: `npx sequelize db:migrate --env "development"`
 
-8 - **Aplique o seed para incluir o usuário administrador** inicial:
+7 - **Aplique o seed para incluir o usuário administrador** inicial:
 
     npx sequelize db:seed:all
 
-9 - Para **executar a aplicação** utilize:
+8 - Para **executar a aplicação** utilize:
 
     npm run dev:queue
 
