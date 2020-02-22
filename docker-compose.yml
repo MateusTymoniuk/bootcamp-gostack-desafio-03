@@ -1,0 +1,20 @@
+# v3 syntax
+version: '3'
+
+services:
+
+  postgres:
+    image: postgres
+    container_name: postgres-fastfeet
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=
+
+  redis:
+    image: redis:alpine
+    container_name: redis-fastfeet
+    ports:
+      - "6379:6379"
