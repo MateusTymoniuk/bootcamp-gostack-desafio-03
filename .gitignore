@@ -1,6 +1,7 @@
 /node_modules
 .vscode
 package-lock.json
+.env
 
 # exclude everything on uploads folder
 tmp/uploads/*
